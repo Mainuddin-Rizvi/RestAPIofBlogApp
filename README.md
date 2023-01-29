@@ -30,3 +30,47 @@ Add Below all Bean in SecurityConfig class file.
 5. Than autowired customuserdetailsService in Security config
 6. add bean of Authentication manager.
 
+
+JWT IMPLEMENTATION
+1.Add JWT related Maven Dependencies
+   
+         <dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+
+2.Create JWT AuthenticationEntryPoint
+
+      @Component
+      public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+            @Override
+            public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+               response.sendError(HttpServletResponse.SC_UNAUTHORIZED,authException.getMessage());
+            }
+      }
+
+3.Add JWT Properties in application properties file.
+         
+      app.jwt-secret = 89fbfac1c9f24aac119d773c6cbc7eb7a75d3d8fd99f7a1b4439a2c58da78893
+      app-jwt-expiration-milliseconds = 604800000
+
+4.Create JWtTokenPovider - utility class
+5.Create JwtAuthenticationFilter
+6.Create JwtAuthResponseDto
+7.Configure Jwt in Spring Security
+8.Change Login/Signin RestApi to return JWT Token
+
+
